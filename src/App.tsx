@@ -7,26 +7,9 @@ import { syntaxHighlight } from "./languageServer/highlight";
 import { linter, Diagnostic } from "@codemirror/lint";
 import "./App.css";
 import "./languageServer";
-import { javascript } from "@codemirror/lang-javascript";
 import LogQueryLexer from "./grammar/LogQueryLexer";
 import LogQueryParser from "./grammar/LogQueryParser";
 import antlr4 from "antlr4";
-
-// const customLinter = linter((view) => {
-//   console.log("test ===> ");
-//   const code = view.state.doc.toString();
-//   const errors = validateCode(code);
-
-//   const result = errors.map((err) => ({
-//     from: err.from,
-//     to: err.to,
-//     severity: "error",
-//     message: err.message,
-//   }));
-
-//   console.log("result ===> ", result);
-//   return result;
-// });
 
 const regexpLinter = linter(
   (view) => {
@@ -58,42 +41,12 @@ const regexpLinter = linter(
       setTimeout(() => {
         resolve([]);
       }, 500);
-
-      // Example: Check for missing semicolons
-
-      // return diagnostics;
     });
   },
   {
     delay: 0,
   }
 );
-
-// const customLinter = linter((view) => {
-//   let diagnostics: Diagnostic[] = [];
-//   syntaxTree(view.state)
-//     .cursor()
-//     .iterate((node) => {
-//       if (node.name == "RegExp")
-//         diagnostics.push({
-//           from: node.from,
-//           to: node.to,
-//           severity: "warning",
-//           message: "Regular expressions are FORBIDDEN",
-//           actions: [
-//             {
-//               name: "Remove",
-//               apply(view, from, to) {
-//                 view.dispatch({ changes: { from, to } });
-//               },
-//             },
-//           ],
-//         });
-//     });
-//   return diagnostics;
-// });
-
-// logQueryLanguage.configure({});
 
 const parserAdapter = new ParserAdapter();
 const logQueryLanguage = new Language(
